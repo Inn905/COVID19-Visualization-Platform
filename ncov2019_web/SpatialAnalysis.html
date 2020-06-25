@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>COVID19</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
+
+    <!-- Fonts and icons -->
+    <script src="js/webfont.min.js"></script>
+
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['assets/css/fonts.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/atlantis.min.css">
+
+    <script src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+
+    <!--百度地图API-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&services=true&ak=4tPcrZcaduiSx5hSHGRvdAFO88gEKwKc"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+
+<div class="wrapper sidebar_minimize">
+
+    <div class="main-header">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="blue">
+
+            <a href="index.html" class="logo">
+                <img src="photos/logo.png" alt="navbar brand" class="navbar-brand">
+            </a>
+            <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+            </button>
+            <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="icon-menu"></i>
+                </button>
+            </div>
+        </div>
+        <!-- End Logo Header -->
+
+        <!-- Navbar Header -->
+        <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+            <div class="container-fluid">
+                <div class="collapse" id="search-nav">
+
+                    <select class="easyui-combobox" style="width:40%" id="sel">
+                        <option>广东</option>
+                    </select>
+                    <select class="easyui-combobox" style="width:40%" id="sel2">
+                        <option>珠海市</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <!--div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div-->
+
+            <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                <input  type="text" name='date99' id='date99' class="form-control" size="20"  style="width:150px;"/>
+                <div id="r-result" style="color: #0A0B11">
+
+                    <input type="text" placeholder="请输入地址定位" class="form-control" id="suggestId" size="20"  style="width:250px;" />
+                    <datalist id="searchResultPanel"></datalist>
+                </div>
+                &emsp;
+                <a id="buffer" class="btn btn-white btn-border btn-round mr-2" onclick="GetBuffer()">双击定位</a>
+
+                <a class="btn btn-white btn-border btn-round mr-2" onclick="DrawTrack()"><i class="fas fa-map-marker-alt"></i></a>
+
+                <a id="Canclebuffer" class="btn btn-white btn-border btn-round mr-2" onclick="initMap()">还原</a>
+
+                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fas fa-desktop"></i>
+                    </a>
+                    <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+                        <div class="quick-actions-header">
+                            <span class="title mb-1">便捷服务</span>
+                            <span class="subtitle op-8">新冠肺炎相关服务平台</span>
+                        </div>
+                        <div class="quick-actions-scroll scrollbar-outer">
+                            <div class="quick-actions-items">
+                                <div class="row m-0">
+
+                                    <a class="col-6 col-md-4 p-0" href="https://sa.sogou.com/new-weball/page/sgs/epidemic/xhw?type_page=xhw" target ="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-file-1"></i>
+                                            <span class="text">同城查询</span>
+
+
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="https://xw.qq.com/act/fytrace?pgv_ref=xinhuawang&ADTAG=xinhuawang" target ="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-database"></i>
+                                            <span class="text">轨迹查询</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0"href="https://expert.baidu.com/med/template/#/pages/doctor/fyrobottriage/index?vn=med&word=%E9%97%AE%E5%8C%BB%E7%94%9F&atn=fyrobottriage&title=%E6%99%BA%E8%83%BD%E8%87%AA%E6%B5%8B&questionnaire=antiepidemic&sf_ref=xhw_antiepidemic_zice&lid=8795088393" target="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-pen"></i>
+                                            <span class="text">智能自测</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="http://www.piyao.org.cn/2020yqpy/" target="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-list"></i>
+                                            <span class="text">求征辟谣</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="http://sike.news.cn/hot/h5/yiqing/zt/index.html" target="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-file"></i>
+                                            <span class="text">心理防疫站</span>
+                                        </div>
+                                    </a>
+                                    <a class="col-6 col-md-4 p-0" href="https://yq.esgcc.com.cn/distxhw/index.html#/" target="_blank">
+                                        <div class="quick-actions-item">
+                                            <i class="flaticon-interface-1"></i>
+                                            <span class="text">供需对接</span>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End Navbar -->
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar sidebar-style-2">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+            <div class="sidebar-content">
+                <div class="user">
+                    <div class="avatar-sm float-left mr-2">
+                        <img src="photos/川菜.jpg" alt="..." class="avatar-img rounded-circle">
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" aria-expanded="true">
+								<span>
+									COVID2019
+                            </span>
+                            <span class="user-level" style="font-size:12px">
+									抗击疫情人人有责
+                            </span>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <ul class="nav nav-primary">
+
+                    <li class="nav-item">
+                        <a href="SpreadMap.html">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>传播地图</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="WordCloud.html">
+                            <i class="fas fa-th-list"></i>
+                            <p>关键词云</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Curve.html" >
+                            <i class="far fa-chart-bar"></i>
+                            <p>数据查询</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Map.html">
+                            <i class="fas fa-layer-group"></i>
+                            <p>态势地图</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="DataAnalysis.html">
+                            <i class="fas fa-pen-square"></i>
+                            <p>数据分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="SpatialAnalysis.html">
+                            <i class="fas fa-table"></i>
+                            <p>地图分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            <p>退出</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Sidebar -->
+
+
+    <div id="main" style="width:auto;height:100%">
+        <!--是否需要一个单独窗体-->
+        <div style="width:auto;height:100%;border:#ccc solid 1px;" id="dituContent"></div>
+        <!--<div style="width:420px;height:700px;left:1100px;up:15%;border:#ccc solid 1px;" id="Toolbox"></div>-->
+    </div>
+    <!--百度地图容器-->
+
+
+</div>
+
+
+<script type="text/javascript" src="e-chart/echarts.js"></script>
+<script type="text/javascript" src='e-chart/china.js'></script>
+<!--   Core JS Files   -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- jQuery Scrollbar -->
+<script src="assets/js/jquery.scrollbar.min.js"></script>
+<!-- Atlantis JS -->
+<script src="assets/js/atlantis.min.js"></script>
+
+
+<script >
+
+    //标注点数组
+    var markerArr=[];
+    var Citys=[];
+    var Provinces = [];
+    var Keyword;
+    var centerpoint;
+    var myCity='';
+
+    //创建option
+    function createOption(parentId, data) {
+        let Select=[];
+        for (let i = 0; i < data.length; i++) {
+            Select.push({'text':data[i],'value':data[i]})
+        }
+        $(parentId).combobox({
+            textField:'text',
+            valueField:'value',
+            data:Select
+        });
+    }
+
+    //省份列表
+    $.ajax({
+        type:"get",
+        url:"http://localhost:8081/ncov/analysis/All_Province",
+        data:{},
+        dataType : "json",
+        async: false,
+        success:function (data) {
+            for(let i=0;i<data.length;i++){
+                Provinces.push(data[i]);
+            }
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+        }
+    });
+
+    //省份列表创建
+    createOption('#sel',Provinces);
+
+    //************************下拉框1
+    $(document).ready(function () {
+        $("#sel").combobox({
+            onSelect: function (n,o) {
+
+                Keyword = n.value;
+                Citys.splice(0,Citys.length);
+//城市列表
+                $.ajax({
+                    type: "get",
+                    url: "http://localhost:8081/ncov/analysis/All_City/" + Keyword,
+                    data: {},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            Citys.push(data[i]);
+                        }
+                    },
+                    error: function (errorMsg) {
+                        //请求失败时执行该函数
+                        alert("图表请求数据失败!");
+                    }
+                });
+
+                document.getElementById("sel2").options.length = 0;
+                createOption('#sel2', Citys);
+            }
+        });
+    });
+
+    //*************************下拉框2
+    $(document).ready(function ()  {
+        $("#sel2").combobox({
+            onSelect: function (n,o) {
+                Keyword=n.value;
+                myCity=Keyword;
+//城市数据
+                //map.clearOverlays();
+                initMap();//创建和初始化地图
+
+            }
+        });
+    });
+
+    //创建和初始化地图函数：
+    function initMap(){
+        markerArr=[];
+        GetData();
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        //map.clearOverlays();
+        addMarker();//向地图中添加marker
+    }
+
+    function GetData() {
+        $.ajax({
+            type:"get",
+            url:"http://localhost:8081/ncov/Hanalysis/City?city="+Keyword,
+            data:{},
+            dataType : "json",
+            async: false,
+            success:function (data) {
+                markerArr=[]
+                for(let i=0;i<data.length;i++){
+                    markerArr.push({
+                        id:data[i].id,
+                        province:data[i].province,
+                        city:data[i].city,
+                        district:data[i].district,
+                        place:data[i].place,
+                        source:data[i].source,
+                        link:data[i].link,
+                        lng:data[i].lng,
+                        lat:data[i].lat,
+                        reportDate:data[i].report_date
+                    })
+                }
+                centerpoint=new BMap.Point(data[0].lng,data[0].lat);
+            },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+            }
+        });
+
+    }
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        //var point = new BMap.Point(116.426978,39.894567);//定义一个中心点坐标
+        map.centerAndZoom(centerpoint,11);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+        map.addEventListener('click', function (e) {
+            //alert(e.point.lng +', '+ e.point.lat);
+            //Buffer(e.point);
+        });
+    }
+
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT,type:BMAP_NAVIGATION_CONTROL_LARGE,offset:new BMap.Size(0,80)});
+        map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+        var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+        map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+        var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        map.addControl(ctrl_sca);
+    }
+
+    //创建marker
+    function addMarker(flag){
+        if(flag){
+            markerArr=markerBuffer;
+        }
+        //var allOverlay = map.getOverlays();
+        //for (var j = 0; j < allOverlay.length; j++) {
+        //    allOverlay[j].enableMassClear();
+        //}
+        //map.clearOverlays();
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var point = new BMap.Point(json.lng,json.lat);
+            //var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point);
+            marker.disableMassClear();
+            var iw = createInfoWindow(i);
+            //var label = new BMap.Label(json.title);
+            //marker.setLabel(label);
+            map.addOverlay(marker);
+
+
+            (function(){
+                var index = i;
+                var _iw = createInfoWindow(i);
+                var _marker = marker;
+
+                _marker.addEventListener("click",function(){
+
+                    this.openInfoWindow(_iw);
+                });
+            })
+            ()
+        }
+
+
+    }
+
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json =  markerArr[i];
+        var iw;
+        if(json.source != null)
+        {
+            iw = new BMap.InfoWindow(
+                "<span><strong>确诊时间：</strong>"+json.reportDate+"</span><br>" +
+                "<span><strong>市：</strong>"+json.city+"</span><br>" +
+                "<span><strong>地址：</strong>"+json.place+"</span><br>" +
+                "<span ><strong>信息来源：</strong><a href="+json.link+" target =\"_blank\">"+json.source+"</a></span><br>"
+            );
+        }
+        else{
+            iw = new BMap.InfoWindow(
+                "<span><strong>地址：</strong>"+json.place+"</span><br>"+
+                "<span><strong>时间：</strong>"+json.reportDate+"</span><br><br>"
+            );
+        }
+        return iw;
+    }
+
+
+    //创造搜索框 然后进行检索定位
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {"input" : "suggestId",
+            "location" : window.map
+        });
+
+    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+//*******************************************************************
+    var myDangerVarr=[];
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth()+1;
+    var date = now.getDate();
+    var Nowtime = year+"-"+month+"-"+date;
+
+    var Clickdate = document.getElementById('date99');
+    Clickdate.value = Nowtime;
+
+    function getDangerV(city,date,lat,lng) {
+        var data = {
+            'city':city,
+            'date':date,
+            'lat':lat,
+            'lng':lng
+        };
+        var TdangerV=0;
+
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "http://localhost:8081/ncov/address/danger" ,//url
+            data: data,
+            traditional: true,//这里设置为true
+            async: false,
+            success: function (data) {
+                TdangerV = data;
+            },
+            error : function() {
+                alert("失败！");
+            }
+        });
+
+        return TdangerV;
+    }
+
+
+    function addTrack(start,end){
+        var mJson=myDangerVarr;
+
+        var myIcon = new BMap.Icon("photos/marker2.png", new BMap.Size(50,50), {    //小图片
+            //offset: new BMap.Size(0, -5),    //相当于CSS精灵
+            imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+        });
+
+        //change
+        //更改了参数
+        var driving = new BMap.DrivingRoute(map,{
+            renderOptions: {
+                map: map,
+                enableDragging : true //可进行拖拽
+            },
+        });
+
+        let temp = {};
+        let DateGroup = [];
+        for(let i = start; i < end; i++){
+            let a = mJson[i];
+            if(!temp[a.reportDate]){
+                DateGroup.push({
+                    reportDate: a.reportDate,
+                    city:a.city,
+                    Tpts:[],
+                    s:[],
+                    data: [a]
+                });
+                temp[a.reportDate] = a;
+            }else{
+                for(let j = 0; j < DateGroup.length; j++){
+                    let b = DateGroup[j];
+                    if(b.reportDate == a.reportDate){
+                        b.data.push(a);
+                        break;
+                    }
+                }}
+        }
+
+        for(let i=0;i<DateGroup.length;i++){
+            if(DateGroup[i].data.length>1){
+                var waypoints=[];
+                var P1= new BMap.Point(DateGroup[i].data[0].lng,DateGroup[i].data[0].lat);
+                var P2= new BMap.Point(DateGroup[i].data[DateGroup[i].data.length-1].lng,mJson[DateGroup[i].data.length-1].lat);
+                for(var j=1;j<DateGroup[i].data.length-1;j++){
+                    var P= new BMap.Point(DateGroup[i].data[j].lng,DateGroup[i].data[j].lat);
+                    waypoints.push(P)
+                }
+                driving.search(P1,P2,{waypoints});
+            }
+        }
+        //changeover
+        var order=0;
+
+        driving.setSearchCompleteCallback(function(){
+            //change
+            map.clearOverlays();
+            Tpts=[];
+            TptsDetail=[]
+            // 获取第一条方案
+            var plan = driving.getResults().getPlan(0);
+            for(var j = 0;j < plan.getNumRoutes(); j++){
+                var pts = plan.getRoute(j).getPath();    //通过驾车实例，获得一系列点的数组
+                Tpts=Tpts.concat(pts);
+            }
+            var polyline = new BMap.Polyline(Tpts);
+            map.addOverlay(polyline);
+            var paths = Tpts.length;    //获得有几个点
+            var carMk = new BMap.Marker(Tpts[0],{icon:myIcon});
+
+            var TdangerV=getDangerV(DateGroup[0].city,DateGroup[0].reportDate,Tpts[0].lat,Tpts[0].lng);
+            var label = new BMap.Label("危险系数:"+TdangerV,{offset:new BMap.Size(40,-10)});
+            label.setStyle({
+                color : "black",
+                maxWidth:"none",   //去除bootstrap中样式
+                fontSize : "12px",
+                height : "20px",
+                lineHeight : "20px",
+                fontFamily:"微软雅黑"
+            });
+
+
+            carMk.setLabel(label);
+
+            map.addOverlay(carMk);
+            var j=0;
+            function resetMkPoint(j){
+                map.removeOverlay(label);
+                TdangerV=getDangerV(DateGroup[0].city,DateGroup[0].reportDate,Tpts[j].lat,Tpts[j].lng);
+
+                label = new BMap.Label("危险系数:"+TdangerV,{offset:new BMap.Size(40,-10)});
+                label.setStyle({
+                    color : "black",
+                    maxWidth:"none",   //去除bootstrap中样式
+                    fontSize : "12px",
+                    height : "20px",
+                    lineHeight : "20px",
+                    fontFamily:"微软雅黑"
+                });
+                carMk.setPosition(Tpts[j]);
+                carMk.setLabel(label);
+
+                if(j < paths){
+                    setTimeout(function(){
+                        j++;
+                        resetMkPoint(j);
+                    },100);
+                }
+            }
+            setTimeout(function(){
+                resetMkPoint(5);
+            },100);
+
+            // 获取方案的驾车线路
+            var route = plan.getRoute(0);
+            // 获取每个关键步骤,并输出到页面
+            var s = [];
+            for(var j = 0;j < plan.getNumRoutes(); j++){
+                var route = plan.getRoute(j);
+                for (var i = 0; i < route.getNumSteps(); i++){
+                    var step = route.getStep(i);
+                    s.push((j + 1)+"-"+(i + 1) + ". " + step.getDescription());
+                }
+            }
+
+            //document.getElementById("dialog_result").innerHTML = s.join("<br/>");
+            //changeover
+
+            //$('#exampleModal3').on('show.bs.modal', function (event) {
+             //   var modal = $(this);
+            //})
+
+            //if(heat==1){
+            //    openHeatmap();
+            //}
+
+        });
+
+        /*
+        for(i=start;i<end;i++){
+            addMarker(i);
+        }
+        */
+    }
+
+    function DrawTrack() {
+        addTrack(0,myDangerVarr.length);
+        myDangerVarr=[];
+
+    }
+
+    //*******************************************************************
+
+    var myValue;
+    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        GetBuffer();
+
+        var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        setPlace();
+    });
+
+    function setPlace(){
+        //map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+
+            var time = Clickdate.value;
+            var TdangerV=getDangerV(myCity,time,pp.lat,pp.lng);
+            myDangerVarr.push({
+                lng: pp.lng,
+                lat: pp.lat,
+                reportDate:time,
+                dangerV:TdangerV,
+                city:myCity
+            })
+
+            map.centerAndZoom(pp, 13);
+            //map.addOverlay(new BMap.Marker(pp));    //添加标注
+            mypoint=pp.lng+'|'+pp.lat;
+            markerMe = [{title:"危险系数: "+ TdangerV.toString(),content:"我的当前位置",point:mypoint,isOpen:0,icon:{w:50,h:50,l:0,t:0,x:6,lb:5}}];
+            Buffer(pp,10);
+            addMarker1(markerMe);
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+
+    //创建marker
+    function addMarker1(markerArr){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+            var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+            //var iw = createInfoWindow1(i,markerArr);
+            var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+            label.setStyle({
+                color : "black",
+                maxWidth:"none",   //去除bootstrap中样式
+                fontSize : "12px",
+                height : "20px",
+                lineHeight : "20px",
+                fontFamily:"微软雅黑"
+            })
+
+            marker.setLabel(label);
+            map.addOverlay(marker);
+        }
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var picfile;
+        picfile="photos/marker2.png";
+        var icon = new BMap.Icon(picfile, new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+
+    function GetBuffer() {
+        var mypoint="";
+        map.clearOverlays();
+//***********************************************************************
+        map.addEventListener('dblclick', function (e) {
+            //map.clearOverlays();    //清除地图上所有覆盖物
+            //alert(e.point.lng +', '+ e.point.lat);
+
+            var time = Clickdate.value;
+            var TdangerV=getDangerV(myCity,time,e.point.lat,e.point.lng);
+            myDangerVarr.push({
+                lng: e.point.lng,
+                lat: e.point.lat,
+                reportDate:time,
+                dangerV:TdangerV,
+                city:myCity
+            })
+
+            mypoint=e.point.lng+'|'+e.point.lat;
+            markerMe = [{title:"危险系数："+TdangerV.toString(),content:"我的当前位置",point:mypoint,isOpen:0,icon:{w:50,h:50,l:0,t:0,x:6,lb:5}}];
+            map.centerAndZoom(e.point, 13);
+            //alert(mypoint);
+            //addMarker();
+            Buffer(e.point,10);
+            addMarker1(markerMe);
+        });
+    }
+
+    var markerBuffer=[];
+
+    function Buffer(point,radius) {
+        $.ajax({
+            type:"get",
+            url:"http://localhost:8081/ncov/Hanalysis/Buffer?"+"buffer="+radius+"&city="+Keyword+"&pointlat="+point.lat+"&pointlng="+point.lng,
+            data:{},
+            dataType : "json",
+            async: false,
+            success:function (data) {
+                markerBuffer=[];
+                for(let i=0;i<data.length;i++){
+                    markerArr.push({
+                        id:data[i].id,
+                        province:data[i].province,
+                        city:data[i].city,
+                        district:data[i].district,
+                        place:data[i].place,
+                        source:data[i].source,
+                        link:data[i].link,
+                        lng:data[i].lng,
+                        lat:data[i].lat,
+                        reportDate:data[i].report_date
+                    })
+                }
+            },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+            }
+        });
+        addMarker(1);
+        var circle = new BMap.Circle(point,radius*1000,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5}); //创建圆
+        map.addOverlay(circle);            //增加圆
+    }
+
+</script>
+
+
+
+</body>
+</html>

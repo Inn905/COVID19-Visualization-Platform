@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>COVID19</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
+    <!-- Fonts and icons -->
+    <script src="js/webfont.min.js"></script>
+
+    <script>
+        WebFont.load({
+            google: {"families":["Lato:300,400,700,900"]},
+            custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['assets/css/fonts.min.css']},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/atlantis.min.css">
+
+    <script src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+
+    <style>
+        .pop {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+</head>
+<body>
+<div class="wrapper sidebar_minimize">
+    <div class="main-header">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="blue">
+
+            <a href="index.html" class="logo">
+                <img src="photos/logo.png" alt="navbar brand" class="navbar-brand">
+            </a>
+            <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+            </button>
+            <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+            <div class="nav-toggle">
+                <button  href="index.html" class="btn btn-toggle toggle-sidebar">
+                    <i class="icon-menu"></i>
+                </button>
+            </div>
+        </div>
+        <!-- End Logo Header -->
+
+        <!-- Navbar Header -->
+        <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+            <div class="container-fluid">
+                <div class="collapse" id="search-nav">
+                    <select class="easyui-combobox" style="width:40%" id="sel">
+                        <option>湖北</option>
+                    </select>
+                    <select class="easyui-combobox" style="width:40%" id="sel2">
+                        <option>--- 请选择城市 ---</option>
+                    </select>
+                </div>
+            </div>
+
+        </nav>
+        <!-- End Navbar -->
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar sidebar-style-2">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+            <div class="sidebar-content">
+                <div class="user">
+                    <div class="avatar-sm float-left mr-2">
+                        <img src="photos/川菜.jpg" alt="..." class="avatar-img rounded-circle">
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" aria-expanded="true">
+                            <span>
+									COVID2019
+                            </span>
+                            <span class="user-level" style="font-size:12px">
+									抗击疫情人人有责
+                            </span>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <ul class="nav nav-primary">
+
+                    <li class="nav-item">
+                        <a href="SpreadMap.html">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>传播地图</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="WordCloud.html">
+                            <i class="fas fa-th-list"></i>
+                            <p>关键词云</p>
+                        </a>
+                    </li>
+                    <li class="nav-item  active">
+                        <a href="Curve.html" >
+                            <i class="far fa-chart-bar"></i>
+                            <p>数据查询</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Map.html">
+                            <i class="fas fa-layer-group"></i>
+                            <p>态势地图</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="DataAnalysis.html">
+                            <i class="fas fa-pen-square"></i>
+                            <p>数据分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="SpatialAnalysis.html">
+                            <i class="fas fa-table"></i>
+                            <p>地图分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            <p>退出</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Sidebar -->
+
+
+    <div class="main-panel">
+
+        <div class="content">
+
+        <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-4">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">数据查询</h2>
+                            <!--<h5 class="text-white op-7 mb-2">折线图、饼图、晴雨表balabababab</h5>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-inner mt--5">
+
+                <div class="row mt--2">
+                    <!--main1-->
+                        <div class="col-md-6">
+                            <div class="card full-height">
+                                <div class="card-body">
+                                    <div class="row" style="height: 500px">
+                                            <div id="main1" class="pop"  style="width: 100%;height:100%;margin: 0 auto;" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--main2-->
+                        <div class="col-md-6">
+                            <div class="card full-height">
+                                <div class="card-body">
+                                    <div class="row" style="height: 500px">
+                                        <div id="main2" class="pop"  style="width: 100%;height:100%;margin: 0 auto;" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                <!--main3-->
+                <div class="row row-card-no-pd">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="row" style="height: 500px">
+                                    <div class="col-md-12 row">
+                                        <div id="main3" class="pop"  style="width: 100%;height:100%;margin: 0 auto;" ></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--main4-->
+                <div class="row row-card-no-pd">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="row" style="height: 500px">
+                                    <div class="col-md-12 row">
+                                        <div id="main4" class="pop"  style="width: 100%;height:100%;margin: 0 auto;" ></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+ <!--   <div id="main" class="pop"  style="width: 80%;height:80%;margin: 0 auto;" ></div> -->
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="e-chart/echarts.js"></script>
+<script type="text/javascript" src="e-chart/echarts-liquidfill.js"></script>
+
+
+<!--   Core JS Files   <script src="assets/js/bootstrap.min.js"></script>
+<!-- jQuery Scrollbar  <script src="assets/js/jquery.scrollbar.min.js"></script>
+<!-- Atlantis JS  <script src="assets/js/atlantis.min.js"></script>
+-->
+
+
+
+<script type="module">
+    //定义内容的json数据，一般从后台获取 module,,null, {renderer: 'svg'}
+
+    var Citys=[];
+    var Provinces = [];
+    var Keyword;
+
+    var Add=[];
+    var Recover=[];
+    var Newdead=[];
+    var Reportdate=[];
+
+    //创建option
+    function createOption(parentId, data) {
+        let Select=[];
+        for (let i = 0; i < data.length; i++) {
+            Select.push({'text':data[i],'value':data[i]})
+        }
+        $(parentId).combobox({
+            textField:'text',
+            valueField:'value',
+            data:Select
+        });
+    }
+
+    //省份列表
+    $.ajax({
+        type:"get",
+        url:"http://localhost:8081/ncov/ncov2019/All_Province",
+        data:{},
+        dataType : "json",
+        async: false,
+        success:function (data) {
+            for(let i=0;i<data.length;i++){
+                Provinces.push(data[i]);
+            }
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+        }
+    });
+
+    //省份列表创建
+    createOption('#sel',Provinces);
+
+    //****************下拉框1
+    $(document).ready(function () {
+        $("#sel").combobox({
+            onSelect: function (n,o) {
+
+                Keyword=n.value;
+                Citys.splice(0,Citys.length);
+
+//城市列表
+                $.ajax({
+                    type:"get",
+                    url:"http://localhost:8081/ncov/ncov2019/All_City/"+Keyword,
+                    data:{},
+                    dataType : "json",
+                    async: false,
+                    success:function (data) {
+                        for(let i=0;i<data.length;i++){
+                            Citys.push(data[i]);
+                        }
+                    },
+                    error : function(errorMsg) {
+                        //请求失败时执行该函数
+                        alert("图表请求数据失败!");
+                    }
+                });
+
+                document.getElementById("sel2").options.length = 0;
+                createOption('#sel2',Citys);
+
+                Add.splice(0,Add.length);
+                Recover.splice(0,Recover.length);
+                Newdead.splice(0,Newdead.length);
+                Reportdate.splice(0,Reportdate.length);
+
+//省份数据
+                $.ajax({
+                    type:"get",
+                    url:"http://localhost:8081/ncov/ncov2019/province/"+Keyword,
+                    data:{},
+                    dataType : "json",
+                    async: false,
+                    success:function (data) {
+                        Add.push('新增确诊');
+                        Recover.push('新增出院');
+                        Newdead.push('新增死亡');
+                        Reportdate.push('日期');
+                        for(let i=0;i<data.length;i++){
+                            Add.push(data[i].add);
+                            Recover.push(data[i].recover);
+                            Newdead.push(data[i].newdead);
+                            Reportdate.push(data[i].reportdate);
+                        }
+                    },
+                    error : function(errorMsg) {
+                        //请求失败时执行该函数
+                        alert("图表请求数据失败!");
+
+                    }
+                });
+
+                ProGroCi(Keyword);
+                rateDraw();
+                Draw(Keyword,Add,Recover,Newdead,Reportdate);
+                DrawCal(Keyword,Add,Recover,Newdead,Reportdate);
+
+
+            }
+        });
+    });
+
+    //*************************下拉框2
+    $(document).ready(function ()  {
+        $("#sel2").combobox({
+            onSelect: function (n,o) {
+
+                Keyword=n.value;
+//城市数据
+                Add.splice(0,Add.length);
+                Recover.splice(0,Recover.length);
+                Newdead.splice(0,Newdead.length);
+                Reportdate.splice(0,Reportdate.length);
+
+                $.ajax({
+                    type:"get",
+                    url:"http://localhost:8081/ncov//ncov2019/city/"+Keyword,
+                    data:{},
+                    dataType : "json",
+                    async: false,
+                    success:function (data) {
+                        Add.push('新增确诊');
+                        Recover.push('新增出院');
+                        Newdead.push('新增死亡');
+                        Reportdate.push('日期');
+                        for(var i=0;i<data.length;i++){
+                            Add.push(data[i].add);
+                            Recover.push(data[i].recover);
+                            Newdead.push(data[i].newdead);
+                            Reportdate.push(data[i].reportdate);
+                        }
+                    },
+                    error : function(errorMsg) {
+                        //请求失败时执行该函数
+                        alert("图表请求数据失败!");
+
+                    }
+                });
+
+                rateDraw();
+                Draw(Keyword,Add,Recover,Newdead,Reportdate);
+                DrawCal(Keyword,Add,Recover,Newdead,Reportdate);
+
+            }
+        });
+    });
+
+    var sumAdd,sumRecover,sumdeath;
+    var SurvivalRate;
+    var MortalityRate;
+    var IllRate;
+    var myChart2 = echarts.init(document.getElementById('main2'),null, {renderer: 'svg'});
+
+    function rateDraw() {
+
+        sumAdd =[];
+        sumRecover=[];
+        sumdeath=[];
+        SurvivalRate=[];
+        MortalityRate=[];
+        IllRate=[];
+
+        sumAdd[0]= Add[1];
+        sumRecover[0]=Recover[1];
+        sumdeath[0]=Newdead[1];
+
+        SurvivalRate[0]=sumRecover[0]/sumAdd[0];
+        MortalityRate[0]=sumdeath[0]/sumAdd[0];
+        IllRate[0]=1-SurvivalRate[0]-MortalityRate[0];
+
+
+        //第一个数据为空,累加算康复率和死亡率
+        for (let i = 2; i < Add.length; i++) {
+            sumAdd[i-1] = sumAdd[i-2]+Add[i];
+            sumRecover[i-1]=sumRecover[i-2]+Recover[i];
+            sumdeath[i-1]=sumdeath[i-2]+Newdead[i];
+            SurvivalRate[i-1]=sumRecover[i-1]/sumAdd[i-1];
+            MortalityRate[i-1]=sumdeath[i-1]/sumAdd[i-1];
+            IllRate[i-1]=1-SurvivalRate[i-1]-MortalityRate[i-1];
+        }
+
+        option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    orient: 'vertical',
+                    autoPlay: true,
+                    inverse: true,
+                    playInterval: 1000,
+                    left: null,
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    width: 55,
+                    height: null,
+                    label: {
+                        color: '#999'
+                    },
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#555'
+                    },
+                    checkpointStyle: {
+                        color: '#bbb',
+                        borderColor: '#777',
+                        borderWidth: 2
+                    },
+                    controlStyle: {
+                        showNextBtn: false,
+                        showPrevBtn: false,
+                        color: '#666',
+                        borderColor: '#666'
+                    },
+                    emphasis: {
+                        label: {
+                            color: '#fff'
+                        },
+                        controlStyle: {
+                            color: '#aaa',
+                            borderColor: '#aaa'
+                        }
+                    },
+                    data: []
+                },
+                title: {
+                    text: Reportdate[1]+Keyword + '  康复\\死亡\\治疗中',
+                    x: 'center'
+                },
+
+                series: [
+                    {
+                        type: 'liquidFill',
+                        radius: '30%',
+                        color: ['#195ba6'],
+                        center: ['30%', '40%'],
+                        data: [SurvivalRate[0], SurvivalRate[0], SurvivalRate[0]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#1789fb',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { //此处没有生效，本地生效
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                                position:'top',
+                            },
+                        },
+                        //    shape: 'path://M172.39,89.41a6.1,6.1,0,0,0-6.1,6.1c0,21.38-10.18,40.57-28.66,54l-34.07,24.78a6.21,6.21,0,0,1-7.17,0l-34-24.75c-18.48-13.46-28.67-32.65-28.67-54a6.1,6.1,0,0,0-12.2,0c0,25.38,12,48.07,33.69,63.89l34.08,24.77a18.3,18.3,0,0,0,21.51,0l34.06-24.78c21.72-15.82,33.68-38.51,33.68-63.89A6.1,6.1,0,0,0,172.39,89.41Zm-6.34-54.6L107,13.89l-.21-.07a23,23,0,0,0-13.6,0l-.21.07L34.09,34.75A18,18,0,0,0,21.47,52V75.33a6.1,6.1,0,0,0,12.2,0V52A6,6,0,0,1,38,46.31L96.92,25.44a10.56,10.56,0,0,1,6.1,0l59.14,20.93A5.88,5.88,0,0,1,166.29,52V75.33a6.1,6.1,0,0,0,12.2,0V52A18,18,0,0,0,166.05,34.81ZM78.21,44.67a6.1,6.1,0,0,0-6.1,6.1v5.95a6.1,6.1,0,0,0,12.2,0V50.77A6.1,6.1,0,0,0,78.21,44.67Zm43.55,0a6.1,6.1,0,0,0-6.1,6.1v5.95a6.1,6.1,0,1,0,12.2,0V50.77A6.1,6.1,0,0,0,121.76,44.67ZM106.6,74s-2.66,3.86-6.68,3.86-6.33-3.54-6.5-3.79a6.1,6.1,0,0,0-10.32,6.5c2.19,3.52,8.19,9.49,16.82,9.49s14.67-5.92,16.91-9.42A6.06,6.06,0,0,0,115,72.3,6.13,6.13,0,0,0,106.6,74Zm-29,58H93.88v16.27a6.1,6.1,0,1,0,12.2,0V132h16.27a6.1,6.1,0,0,0,0-12.2H106.08V103.52a6.1,6.1,0,1,0-12.2,0v16.26H77.61a6.1,6.1,0,0,0,0,12.2Z'
+
+                    },
+                    {
+
+                        type: 'liquidFill',
+                        radius: '30%',
+                        color: ['#884046'],
+                        center: ['70%', '40%'],
+                        data: [MortalityRate[0], MortalityRate[0], MortalityRate[0]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#eb5c4d',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { // 同上
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                                position:'top',
+                            },
+                        },
+                        //   shape:'path://M100,19.69c42.7,0,77.35,34.9,77.35,78,0,28.46-15.26,49.91-41.16,60.36l-1.6.63-5.51,2.09-1.52,10.64-.14.76a10,10,0,0,1-8.94,7.79l-.83,0H82.34l-.78,0a10,10,0,0,1-9-7.75l-.15-.81-1.53-10.64-5.51-2.09-1.6-.63c-25.9-10.45-41.16-31.9-41.16-60.36,0-43.1,34.65-78,77.35-78ZM62.5,70A22.5,22.5,0,1,0,85,92.5,22.5,22.5,0,0,0,62.5,70ZM130,60a25,25,0,1,0,25,25A25,25,0,0,0,130,60ZM82.35,190a20,20,0,0,1-19.8-17.17l-.69-4.8C32.72,157,12.64,132.51,12.64,97.68c0-48.6,39.11-88,87.36-88s87.35,39.4,87.35,88c0,34.83-20.08,59.28-49.21,70.35l-.69,4.8A20,20,0,0,1,117.65,190H82.35ZM100,19.69c-.85,0-1.69,0-2.53,0l2.16,7A5,5,0,0,1,98.13,32l-.47.36L86.54,39.88l3.2,5.94a5,5,0,0,1-1.54,6.46l-.5.31a5,5,0,0,1-6.46-1.54l-.31-.5-5.34-9.9a5,5,0,0,1,1.14-6.15l.46-.35,11.79-8-1.67-5.39c-36.67,6.1-64.66,38.22-64.66,77,0,28.47,15.26,49.91,41.16,60.36l1.6.63,5.51,2.09,1.53,10.64A10,10,0,0,0,81.57,180l.78,0H85V160a5,5,0,0,1,10-.58l0,.58v20h10.9l4.2-21A5,5,0,0,1,120,160.4l-.08.58-3.82,19h1.56a10,10,0,0,0,9.76-7.82l.14-.77,1.53-10.63,5.51-2.1c26.87-10.2,42.76-31.94,42.76-61,0-43.1-34.65-78-77.35-78Zm-.7,92.09a5.06,5.06,0,0,1,2.66,2.41l8.6,17a5,5,0,0,1-4.77,7.25L91,137.55a5,5,0,0,1-4.68-5.3,5.16,5.16,0,0,1,.32-1.5l6.23-16.11a5,5,0,0,1,6.47-2.86ZM62.5,60A32.5,32.5,0,1,1,30,92.5,32.5,32.5,0,0,1,62.5,60ZM130,50A35,35,0,1,1,95,85,35,35,0,0,1,130,50ZM62.5,70A22.5,22.5,0,1,0,85,92.5,22.5,22.5,0,0,0,62.5,70ZM130,60a25,25,0,1,0,25,25A25,25,0,0,0,130,60Z'
+                    },
+                    {
+
+                        type: 'liquidFill',
+                        radius: '30%',
+                        color: ['#f0da88'],
+                        center: ['50%', '60%'],
+                        data: [IllRate[0], IllRate[0], IllRate[0]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#f0d25c',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { // 同上
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                                position:'bottom',
+                            },
+                        },
+                        //   shape:'path://M100,30a70,70,0,1,1-70,70A70,70,0,0,1,100,30Zm0,20a50,50,0,1,0,50,50A50,50,0,0,0,100,50ZM77.5,110a7.5,7.5,0,0,1,0,15h0a7.5,7.5,0,0,1,0-15ZM130,80a20,20,0,0,1,20,20h0l0,1a20,20,0,1,1-20-21ZM110,5a5,5,0,0,1,.58,10L110,15h-5v5.15A79.73,79.73,0,0,1,152.93,40l7.5-7.52-4-4a5,5,0,0,1,6.6-7.48l.47.41L177.68,35.6a5,5,0,0,1-6.6,7.49l-.47-.41-3.11-3.11L160,47.07A79.73,79.73,0,0,1,179.85,95H185V90a5,5,0,0,1,10-.59l0,.59v20a5,5,0,0,1-10,.58l0-.58v-5h-5.15A79.73,79.73,0,0,1,160,152.93l7.08,7.07,3.53-3.53a5,5,0,0,1,7.49,6.6l-.41.47-14.15,14.14a5,5,0,0,1-7.48-6.59l.41-.48,3.53-3.53L152.92,160A79.73,79.73,0,0,1,105,179.85V185h5a5,5,0,0,1,.58,10l-.58,0H90a5,5,0,0,1-.58-10l.58,0h5v-5.15A79.73,79.73,0,0,1,47.07,160l-7.5,7.51,3.11,3.1.42.48a5,5,0,0,1-7,7l-.47-.41L21.47,163.53l-.42-.47a5,5,0,0,1,7-7l.47.41,4,4,7.51-7.5A79.66,79.66,0,0,1,20,100H15v5a5,5,0,0,1-10,.58L5,105V85a5,5,0,0,1,10-.59L15,85v5h5.62A79.64,79.64,0,0,1,40,47.08l-7.94-7.94-3.54,3.54a5,5,0,0,1-7.48-6.6l.42-.48L35.6,21.47a5,5,0,0,1,7.49,6.6l-.41.47-3.54,3.53L47.07,40A79.68,79.68,0,0,1,95,20.15V15H90a5,5,0,0,1-.59-10L90,5ZM100,40a60,60,0,1,1-60,60A60,60,0,0,1,100,40Zm0,10a50.28,50.28,0,0,0-13.53,1.85,22.51,22.51,0,1,1-31,25.35,50,50,0,0,0,86.18,50.45,30,30,0,1,1,0-55.3A50,50,0,0,0,100,50ZM77.5,100A17.5,17.5,0,1,1,60,117.5,17.51,17.51,0,0,1,77.5,100Zm0,10a7.5,7.5,0,0,0,0,15h0a7.5,7.5,0,0,0,0-15ZM130,80a20,20,0,1,0,20,20A20,20,0,0,0,130,80ZM77.5,60A12.5,12.5,0,1,0,90,72.5,12.5,12.5,0,0,0,77.5,60Zm74.06,87.34.28-.3.81-.91-.51.56.61-.67,1.11-1.31a69.68,69.68,0,0,0,16-40l0,.3a72.41,72.41,0,0,0,0-10l-.1-1.21a69.74,69.74,0,0,0-21.68-44.7l-.26-.25-.25-.23.24.23-.43-.4-.32-.29.29.26-.27-.25-.51-.45-.39-.35A69.64,69.64,0,0,0,101.57,30L100,30c-.87,0-1.73,0-2.58.05h-.57l-.56,0A69.73,69.73,0,0,0,49.1,52l-.65.7-.28.31-.36.4-.51.57.4-.45-.4.45A69.63,69.63,0,0,0,30.82,89.24l-.11.81-.3,2.33-.21,2.36,0,.27-.07,1,0,.44,0,.79,0-.35,0,1,0-.62A69.77,69.77,0,0,0,52,150.91l.7.64.32.29-.29-.26.28.26.5.44.4.36a69.7,69.7,0,0,0,41,17.17l2,.11.58,0-.29,0,1.31,0c1.61,0,3.22,0,4.82,0l.83-.05,1.77-.12a69.66,69.66,0,0,0,45.1-21.71l.64-.7.28-.31-.26.3Z'
+                    }
+
+                ]
+            },
+            options: []
+        };
+
+        for(let i=1;i<Reportdate.length;i++){
+            option.baseOption.timeline.data.push(Reportdate[i]);
+            option.options.push({
+
+                title: {
+                    text: Reportdate[i]+Keyword +'  康复\\死亡\\治疗中 比率',
+                    x: 'center'
+                },
+                series:[
+                    {
+                        type: 'liquidFill',
+                        radius: '40%',
+                        color: ['#195ba6'],
+                        center: ['30%', '30%'],
+                        data: [SurvivalRate[i-1], SurvivalRate[i-1], SurvivalRate[i-1]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#1789fb',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { //此处没有生效，本地生效
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                            },
+                            position:'top',
+                        },
+                        shape: 'path://M172.39,89.41a6.1,6.1,0,0,0-6.1,6.1c0,21.38-10.18,40.57-28.66,54l-34.07,24.78a6.21,6.21,0,0,1-7.17,0l-34-24.75c-18.48-13.46-28.67-32.65-28.67-54a6.1,6.1,0,0,0-12.2,0c0,25.38,12,48.07,33.69,63.89l34.08,24.77a18.3,18.3,0,0,0,21.51,0l34.06-24.78c21.72-15.82,33.68-38.51,33.68-63.89A6.1,6.1,0,0,0,172.39,89.41Zm-6.34-54.6L107,13.89l-.21-.07a23,23,0,0,0-13.6,0l-.21.07L34.09,34.75A18,18,0,0,0,21.47,52V75.33a6.1,6.1,0,0,0,12.2,0V52A6,6,0,0,1,38,46.31L96.92,25.44a10.56,10.56,0,0,1,6.1,0l59.14,20.93A5.88,5.88,0,0,1,166.29,52V75.33a6.1,6.1,0,0,0,12.2,0V52A18,18,0,0,0,166.05,34.81ZM78.21,44.67a6.1,6.1,0,0,0-6.1,6.1v5.95a6.1,6.1,0,0,0,12.2,0V50.77A6.1,6.1,0,0,0,78.21,44.67Zm43.55,0a6.1,6.1,0,0,0-6.1,6.1v5.95a6.1,6.1,0,1,0,12.2,0V50.77A6.1,6.1,0,0,0,121.76,44.67ZM106.6,74s-2.66,3.86-6.68,3.86-6.33-3.54-6.5-3.79a6.1,6.1,0,0,0-10.32,6.5c2.19,3.52,8.19,9.49,16.82,9.49s14.67-5.92,16.91-9.42A6.06,6.06,0,0,0,115,72.3,6.13,6.13,0,0,0,106.6,74Zm-29,58H93.88v16.27a6.1,6.1,0,1,0,12.2,0V132h16.27a6.1,6.1,0,0,0,0-12.2H106.08V103.52a6.1,6.1,0,1,0-12.2,0v16.26H77.61a6.1,6.1,0,0,0,0,12.2Z'
+                    },
+                    {
+
+                        type: 'liquidFill',
+                        radius: '40%',
+                        color: ['#884046'],
+                        center: ['70%', '30%'],
+                        data: [MortalityRate[i-1], MortalityRate[i-1], MortalityRate[i-1]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#eb5c4d',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { // 同上
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                                position:'top',
+                            },
+                        },
+                        shape: 'path://M100,19.69c42.7,0,77.35,34.9,77.35,78,0,28.46-15.26,49.91-41.16,60.36l-1.6.63-5.51,2.09-1.52,10.64-.14.76a10,10,0,0,1-8.94,7.79l-.83,0H82.34l-.78,0a10,10,0,0,1-9-7.75l-.15-.81-1.53-10.64-5.51-2.09-1.6-.63c-25.9-10.45-41.16-31.9-41.16-60.36,0-43.1,34.65-78,77.35-78ZM62.5,70A22.5,22.5,0,1,0,85,92.5,22.5,22.5,0,0,0,62.5,70ZM130,60a25,25,0,1,0,25,25A25,25,0,0,0,130,60ZM82.35,190a20,20,0,0,1-19.8-17.17l-.69-4.8C32.72,157,12.64,132.51,12.64,97.68c0-48.6,39.11-88,87.36-88s87.35,39.4,87.35,88c0,34.83-20.08,59.28-49.21,70.35l-.69,4.8A20,20,0,0,1,117.65,190H82.35ZM100,19.69c-.85,0-1.69,0-2.53,0l2.16,7A5,5,0,0,1,98.13,32l-.47.36L86.54,39.88l3.2,5.94a5,5,0,0,1-1.54,6.46l-.5.31a5,5,0,0,1-6.46-1.54l-.31-.5-5.34-9.9a5,5,0,0,1,1.14-6.15l.46-.35,11.79-8-1.67-5.39c-36.67,6.1-64.66,38.22-64.66,77,0,28.47,15.26,49.91,41.16,60.36l1.6.63,5.51,2.09,1.53,10.64A10,10,0,0,0,81.57,180l.78,0H85V160a5,5,0,0,1,10-.58l0,.58v20h10.9l4.2-21A5,5,0,0,1,120,160.4l-.08.58-3.82,19h1.56a10,10,0,0,0,9.76-7.82l.14-.77,1.53-10.63,5.51-2.1c26.87-10.2,42.76-31.94,42.76-61,0-43.1-34.65-78-77.35-78Zm-.7,92.09a5.06,5.06,0,0,1,2.66,2.41l8.6,17a5,5,0,0,1-4.77,7.25L91,137.55a5,5,0,0,1-4.68-5.3,5.16,5.16,0,0,1,.32-1.5l6.23-16.11a5,5,0,0,1,6.47-2.86ZM62.5,60A32.5,32.5,0,1,1,30,92.5,32.5,32.5,0,0,1,62.5,60ZM130,50A35,35,0,1,1,95,85,35,35,0,0,1,130,50ZM62.5,70A22.5,22.5,0,1,0,85,92.5,22.5,22.5,0,0,0,62.5,70ZM130,60a25,25,0,1,0,25,25A25,25,0,0,0,130,60Z'
+                    },
+                    {
+
+                        type: 'liquidFill',
+                        radius: '40%',
+                        color: ['#f0da88'],
+                        center: ['50%', '70%'],
+                        data: [IllRate[i-1], IllRate[i-1], IllRate[i-1]],
+                        backgroundStyle: {
+                            borderWidth: 1,
+                            borderColor: '#f0d25c',
+                            color: '#ffffff',
+                        },
+                        outline: {
+                            show: false
+                        },
+                        label: {
+                            normal: { // 同上
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#012b3e',
+                                },
+                                position:'bottom',
+                            },
+                        },
+                        shape:'path://M101.49,80.28a23,23,0,1,1-23,23A23,23,0,0,1,101.49,80.28Zm25-28.15a56.69,56.69,0,0,0-25-5.76,58.2,58.2,0,0,0-7.69.51l-3.72-19a13.16,13.16,0,1,0-6.42,1.36l3.69,18.86A56.89,56.89,0,0,0,62,62.33l-7.56-7a7.32,7.32,0,0,0,.3-2.08,7.4,7.4,0,1,0-7.39,7.4A7.28,7.28,0,0,0,50,60.18l7.56,7A56.71,56.71,0,0,0,46.17,89.81L39.8,88.64a9.87,9.87,0,1,0-1.19,6.46L45,96.27a56.83,56.83,0,0,0,6.46,34.2l-26.9,16.67a13.16,13.16,0,1,0,4.05,9.5,13.42,13.42,0,0,0-.59-3.93L54.91,136A57.11,57.11,0,0,0,80.7,156.32l-6.86,21a9.89,9.89,0,1,0,6.24,2.05l6.86-21a56.79,56.79,0,0,0,14.55,1.88,58.76,58.76,0,0,0,6.54-.37l.52,3a7.4,7.4,0,1,0,6.47-1.13l-.53-3a56.82,56.82,0,0,0,25.34-13.35l15.66,15.32a13.15,13.15,0,1,0,11.4-6.59,12.92,12.92,0,0,0-6.81,1.91L144.42,140.7a56.67,56.67,0,0,0,13.91-34.12h20.2a9.87,9.87,0,1,0,0-6.57h-20.2a56.67,56.67,0,0,0-13.67-33.83l30.9-29.83a9.68,9.68,0,0,0,4.42,1,9.85,9.85,0,1,0-9-5.76L140.11,61.46a57.56,57.56,0,0,0-7.9-6.1l8.4-15a10.54,10.54,0,0,0,1.7.14,9.88,9.88,0,1,0-7.42-3.37Z'
+
+                    }
+                ]
+            });
+        }
+
+        myChart2.setOption(option);
+        window.onresize = myChart2.resize;
+
+    }
+
+</script>
+
+<script type="text/javascript">
+    //定义内容的json数据，一般从后台获取
+
+
+    var myChart0 = echarts.init(document.getElementById('main3'));
+    function Draw(Keyword,Add,Recover,Newdead,Reportdate){
+
+        option = {
+
+            title : {
+                text:Keyword+ '疫情数据变化曲线',
+                x: 'center',
+                align: 'right'
+            },
+
+            toolbox: {
+                feature: {
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+
+            dataset: {
+                source: [
+                    Reportdate,Add,Recover,Newdead
+                ]
+            },
+            legend: {
+                data:['新增确诊', '新增出院','新增死亡'],
+                x:'left'
+            },
+
+            grid: {left:'2%',right:'37%',bottom: 80,containLabel:true},
+            dataZoom: [
+                {
+                    start:30,
+                    end:70
+                }, {
+                    type: 'inside'
+                }],
+
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    axisLine: {onZero: false},
+                    data : Reportdate.map(function (str) {
+                        return str.replace(' ', '\n')
+                    })
+                }
+            ],
+            yAxis: [
+                {
+                    name:'人数',
+                    type: 'value'
+                }
+            ],
+            series: [
+
+                {
+                    name:'新增确诊',
+                    type:'line',
+                    animation: false,
+                    areaStyle: {
+                        normal: {}
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    smooth: true,
+                    data: Add
+                },
+                {
+                    name:'新增出院',
+                    type:'line',
+                    animation: false,
+                    areaStyle: {
+                        normal: {}
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    smooth: true,
+                    data: Recover
+                },
+                {
+                    name:'新增死亡',
+                    type:'line',
+                    animation: false,
+                    areaStyle: {
+                        normal: {}
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    },
+                    smooth: true,
+                    data: Newdead
+                },
+
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: [30,70],
+                    center: ['82%', '50%'],
+                    roseType:'radius',
+                    label: {
+                        formatter: '{b}: {@3月15日} ({d}%)',
+
+                    },
+                    encode: {
+                        itemName: '日期',
+                        value: '3月15日',
+                        tooltip: '3月15日'
+                    }
+                }
+            ]
+        };
+
+        myChart0.on('updateAxisPointer', function (event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                var dimension = xAxisInfo.value;
+                myChart0.setOption({
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}:{@[' + dimension + ']}人({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+
+
+        myChart0.clear();
+
+        myChart0.setOption(option);
+        window.onresize = myChart0.resize;
+
+
+    }
+
+
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    function ProGroCi(Keyword) {
+
+        let Citys=[];
+        let Add=[];
+        let Recover=[];
+        let Newdead=[];
+
+//省份按城市分数据
+        $.ajax({
+            type:"get",
+            url:"http://localhost:8081/ncov/ncov2019//ProGroupByCi/"+Keyword,
+            data:{},
+            dataType : "json",
+            async: false,
+            success:function (data) {
+                for(let i=0;i<data.length;i++){
+                    Citys.push(data[i].city);
+                    Add.push(data[i].add);
+                    Recover.push(data[i].recover);
+                    Newdead.push(data[i].newdead);
+                }
+            },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+                myChart1.hideLoading();
+            }
+        });
+
+
+        option = {
+            title:{
+                text:Keyword+'分城市极坐标柱状图',
+                x:'center'
+            },
+            grid:{
+                top:100
+            },
+            angleAxis: {
+                type: 'category',
+                data: Citys,
+                axisLabel:{interval: 0},
+                //splitNumber: 20, //坐标轴分割段数
+                axisLabel: { //刻度标签设置
+                    show:false,
+                }
+
+            },
+            radiusAxis: {
+
+            },
+            polar: {
+               // radius: [210]//半径大小
+            },
+
+            legend: {
+                show: true,
+                data: ['累计确诊', '累计出院', '累计死亡'],
+                x:'left',
+                y:'bottom'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [{
+                type: 'bar',
+                data: Add,
+                coordinateSystem: 'polar',
+                name: '累计确诊',
+                stack: '人数'
+            }, {
+                type: 'bar',
+                data:Recover,
+                coordinateSystem: 'polar',
+                name: '累计出院',
+                stack: '人数'
+            }, {
+                type: 'bar',
+                data: Newdead,
+                coordinateSystem: 'polar',
+                name: '累计死亡',
+                stack: '人数'
+            }],
+
+
+        };
+
+        myChart1.clear();
+
+        myChart1.setOption(option);
+
+        window.onresize = myChart1.resize;
+
+    }
+
+    var myChart4 = echarts.init(document.getElementById('main4'));
+    function getVirtulData(year,type,Add,Recover,Newdead,Reportdate) {
+        year = year || '2020';
+        var date = +echarts.number.parseDate(year + '-01-01');
+        var end = +echarts.number.parseDate((+year + 1) + '-01-01');
+        var dayTime = 3600 * 24 * 1000;
+        var data = [];
+        var value=[];
+        //var myTime=[];
+        //myTime=Reportdate;
+        switch (type) {
+            case 1:value=Newdead;
+                //title=Keyword2+"新冠疫情死亡情况";
+                //max=max(my_dead)+10;
+                color=['yellow','orangered', 'red'];
+                break;
+            case 2:value=Recover;
+                //title=Keyword2+"新冠疫情治愈情况";
+                //max=max(my_recover)+10;
+                color=['pink','yellow', 'green'];
+                break;
+            default:value=Add;
+                //title=Keyword2+"新冠疫情新增情况";
+                //max=max(my_add)+10;
+                //max=50;
+                color=['lightskyblue', 'yellow', 'orangered'];
+        }
+
+        var n=1;
+        var nn=1;
+        var abc=[2,4];
+        var str,Mymonth,Myday,NowDate;
+        for (var time = date; time < end; time += dayTime) {
+            if(n<Add.length){
+                str = Reportdate[n];
+                Mymonth = GetMyMonth(str);
+                Myday = GetMyDate(str);
+                NowDate = +echarts.number.parseDate(year + '-0' + Mymonth + '-' + Myday);
+                if(NowDate===time){
+                    data.push([
+                        echarts.format.formatTime('yyyy-MM-dd', time),
+                        value[n]
+                    ]);
+                    n++;
+                }
+                else{
+                    data.push([
+                        echarts.format.formatTime('yyyy-MM-dd', time),
+                        0
+                    ]);
+                }
+            }
+            else {
+                data.push([
+                    echarts.format.formatTime('yyyy-MM-dd', time),
+                    0
+                ]);
+            }
+        }
+        return data;
+    }
+    function GetMyMonth(str) {
+        var matches = str.match(/\d+/g);
+        var Mymonth = matches[0];
+        return Mymonth;
+    }
+    function GetMyDate(str) {
+        var matches = str.match(/\d+/g);
+        var Mydate = matches[1];
+        return Mydate;
+    }
+    function DrawCal(Keyword,Add,Recover,Newdead,Reportdate){
+        option = {
+            tooltip: {
+                position: 'top'
+            },
+            legend: {
+                data: ['新增', '死亡','治愈'],
+                selectedMode: 'single',
+                orient: 'vertical',
+                left: 'left',
+            },
+            title: [
+                {
+                    //text: '中国疫情地图',
+                    text:  Keyword+"新冠疫情日历表",
+                    left: 'center',
+                    top: 10,
+                    textStyle: {
+                        color: '#404a59',
+                        fontWeight: 'normal',
+                        fontSize: 20
+                    }
+                }],
+
+            visualMap: [{
+                min: 0,
+                max: 10000,
+                calculable: true,
+                orient: 'horizontal',
+                left: '55%',
+                bottom: 20
+            }],
+
+            calendar: [
+                {
+                    orient: 'vertical',
+                    yearLabel: {
+                        margin: 40
+                    },
+                    dayLabel: {
+                        firstDay: 1,
+                        nameMap: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+                    },
+                    monthLabel: {
+                        nameMap: 'cn',
+                        margin: 20
+                    },
+                    cellSize: 40,
+                    top: 150,
+                    left: 120,
+                    range: '2020-01'
+                },{
+                    orient: 'vertical',
+                    yearLabel: {
+                        margin: 40
+                    },
+                    dayLabel: {
+                        firstDay: 1,
+                        nameMap: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+                    },
+                    monthLabel: {
+                        nameMap: 'cn',
+                        margin: 20
+                    },
+                    cellSize: 40,
+                    top: 150,
+                    left: 520,
+                    range: '2020-02'
+                },
+                {
+                    orient: 'vertical',
+                    yearLabel: {
+                        margin: 40
+                    },
+                    dayLabel: {
+                        firstDay: 1,
+                        nameMap: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+                    },
+                    monthLabel: {
+                        nameMap: 'cn',
+                        margin: 20
+                    },
+                    cellSize: 40,
+                    top: 150,
+                    left: 920,
+                    range: '2020-03'
+                }
+            ],
+
+            series: [ {
+                name: '新增',
+                type: 'effectScatter',
+                coordinateSystem: 'calendar',
+                calendarIndex: 0,
+                symbolSize: function (val) {
+                    if(val[1]/2<20)
+                        return val[1] / 2;
+                    else
+                        return 20;
+                },
+                data: getVirtulData(2020,0,Add,Recover,Newdead,Reportdate)
+            },{
+                name: '新增',
+                type: 'effectScatter',
+                coordinateSystem: 'calendar',
+                calendarIndex: 1,
+                symbolSize: function (val) {
+                    if(val[1]/2<20)
+                        return val[1] / 2;
+                    else
+                        return 20;
+                },
+                data: getVirtulData(2020,0,Add,Recover,Newdead,Reportdate)
+            },
+                {
+                    name: '新增',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 2,
+                    symbolSize: function (val) {
+                        if(val[1]/2<20)
+                            return val[1] / 2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,0,Add,Recover,Newdead,Reportdate)
+                },
+                {
+                    name: '死亡',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 0,
+                    symbolSize: function (val) {
+                        if(val[1]*2<20)
+                            return val[1]*2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,1,Add,Recover,Newdead,Reportdate)
+                },{
+                    name: '死亡',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 1,
+                    symbolSize: function (val) {
+                        if(val[1]*2<20)
+                            return val[1]*2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,1,Add,Recover,Newdead,Reportdate)
+                },{
+                    name: '死亡',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 2,
+                    symbolSize: function (val) {
+                        if(val[1]*2<20)
+                            return val[1]*2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,1,Add,Recover,Newdead,Reportdate)
+                },
+                {
+                    name: '治愈',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 0,
+                    symbolSize: function (val) {
+                        if(val[1]/2<20)
+                            return val[1] / 2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,2,Add,Recover,Newdead,Reportdate)
+                },{
+                    name: '治愈',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 1,
+                    symbolSize: function (val) {
+                        if(val[1]/2<20)
+                            return val[1] / 2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,2,Add,Recover,Newdead,Reportdate)
+                },{
+                    name: '治愈',
+                    type: 'effectScatter',
+                    coordinateSystem: 'calendar',
+                    calendarIndex: 2,
+                    symbolSize: function (val) {
+                        if(val[1]/2<20)
+                            return val[1] / 2;
+                        else
+                            return 20;
+                    },
+                    data: getVirtulData(2020,2,Add,Recover,Newdead,Reportdate)
+                }]
+        };
+
+        myChart4.setOption(option);
+
+        window.onresize = myChart4.resize;
+    }
+
+</script>
+
+
+</body>
+</html>
